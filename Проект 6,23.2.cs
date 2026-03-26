@@ -1,41 +1,39 @@
 using System;
+class Program
 {
-    class Program
+    static int ПоследняяЦифра(int число)
     {
-        static int ПоследняяЦифра(int число)
+        return Math.Abs(число % 10);
+    }
+    static void Main(string[] args)
+    {
+        Console.Write("Введите длину массива n: ");
+        int n = int.Parse(Console.ReadLine());
+
+        int[] массив = new int[n];
+
+        for (int i = 0; i < n; i++)
         {
-            return Math.Abs(число % 10);
+            Console.Write($"Введите элемент {i + 1}: ");
+            массив[i] = int.Parse(Console.ReadLine());
         }
-        static void Main(string[] args)
+        for (int i = 0; i < n - 1; i++)
         {
-            Console.Write("Введите длину массива n: ");
-            int n = int.Parse(Console.ReadLine());
-            
-            int[] массив = new int[n];
-            
-            for (int i = 0; i < n; i++)
+            for (int j = 0; j < n - i - 1; j++)
             {
-                Console.Write($"Введите элемент {i + 1}: ");
-                массив[i] = int.Parse(Console.ReadLine());
-            }   
-            for (int i = 0; i < n - 1; i++)
-            {
-                for (int j = 0; j < n - i - 1; j++)
+                if (ПоследняяЦифра(массив[j]) > ПоследняяЦифра(массив[j + 1]))
                 {
-                    if (ПоследняяЦифра(массив[j]) > ПоследняяЦифра(массив[j + 1]))
-                    {
-                        int temp = массив[j];
-                        массив[j] = массив[j + 1];
-                        массив[j + 1] = temp;
-                    }
+                    int temp = массив[j];
+                    массив[j] = массив[j + 1];
+                    массив[j + 1] = temp;
                 }
             }
-            Console.WriteLine("Массив, отсортированный по последней цифре:");
-            foreach (int элемент in массив)
-            {
-                Console.Write(элемент + " ");
-            }
-            Console.ReadKey();
         }
+        Console.WriteLine("Массив, отсортированный по последней цифре:");
+        foreach (int элемент in массив)
+        {
+            Console.Write(элемент + " ");
+        }
+        Console.ReadKey();
     }
 }
