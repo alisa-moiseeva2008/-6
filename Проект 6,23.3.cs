@@ -1,47 +1,44 @@
 using System;
+class Program
 {
-    class Program
+    static int ПерваяЦифра(int число)
     {
-        static int ПерваяЦифра(int число)
+        число = Math.Abs(число);
+        while (число >= 10)
         {
-            число = Math.Abs(число);
-            while (число >= 10)
-            {
-                число /= 10;
-            }
-            return число;
+            число /= 10;
         }
-        static void Main(string[] args)
+        return число;
+    }
+    static void Main(string[] args)
+    {
+        Console.Write("Введите длину массива n: ");
+        int n = int.Parse(Console.ReadLine());
+
+        int[] массив = new int[n];
+
+        for (int i = 0; i < n; i++)
         {
-            Console.Write("Введите длину массива n: ");
-            int n = int.Parse(Console.ReadLine());
-            
-            int[] массив = new int[n];
-            
-            for (int i = 0; i < n; i++)
+            Console.Write($"Введите элемент {i + 1}: ");
+            массив[i] = int.Parse(Console.ReadLine());
+        }
+        for (int i = 0; i < n - 1; i++)
+        {
+            for (int j = 0; j < n - i - 1; j++)
             {
-                Console.Write($"Введите элемент {i + 1}: ");
-                массив[i] = int.Parse(Console.ReadLine());
-            }
-            for (int i = 0; i < n - 1; i++)
-            {
-                for (int j = 0; j < n - i - 1; j++)
+                if (ПерваяЦифра(массив[j]) > ПерваяЦифра(массив[j + 1]))
                 {
-                    if (ПерваяЦифра(массив[j]) > ПерваяЦифра(массив[j + 1]))
-                    {
-                        int temp = массив[j];
-                        массив[j] = массив[j + 1];
-                        массив[j + 1] = temp;
-                    }
+                    int temp = массив[j];
+                    массив[j] = массив[j + 1];
+                    массив[j + 1] = temp;
                 }
             }
-            
-            Console.WriteLine("Массив, отсортированный по первой цифре:");
-            foreach (int элемент in массив)
-            {
-                Console.Write(элемент + " ");
-            }
-            Console.ReadKey();
         }
+        Console.WriteLine("Массив, отсортированный по первой цифре:");
+        foreach (int элемент in массив)
+        {
+            Console.Write(элемент + " ");
+        }
+        Console.ReadKey();
     }
 }
